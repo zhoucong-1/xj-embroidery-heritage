@@ -1,0 +1,6 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5180:5180"
+    # 删掉 volumes！这就是覆盖依赖的元凶！
