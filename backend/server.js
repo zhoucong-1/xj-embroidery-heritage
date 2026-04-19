@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const db = require('./db');
+const initData = require('./initData');
 
 const app = express();
 const PORT = 5181;
@@ -143,6 +144,11 @@ app.post('/api/news', async (req, res) => {
 });
 
 // 启动服务
-app.listen(PORT, () => {
-  console.log(`✅ 新疆非遗数字图谱运行在：http://localhost:${PORT}`);
-});
+async function startServer() {
+  await initData();
+  app.listen(PORT, () => {
+    console.log(`✅ 新疆非遗数字图谱运行在：http://localhost:${PORT}`);
+  });
+}
+
+startServer();
