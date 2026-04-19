@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>非遗商店 - 绣缕山河·云展新疆</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>绣缕山河·云展新疆</h1>
+    <p>新疆非遗刺绣数字传承平台</p>
+  </header>
+
+  <nav>
+    <a href="/">首页</a>
+    <a href="heritage.html">非遗刺绣</a>
+    <a href="craft.html">工艺教程</a>
+    <a href="news.html">新闻动态</a>
+    <a href="shop.html">非遗商店</a>
+    <a href="about.html">关于我们</a>
+    <a href="contact.html">联系我们</a>
+    <a href="cart.html" class="cart-link">购物车 (<span id="cart-count">0</span>)</a>
+  </nav>
+
+  <div class="container">
+    <h2>非遗商店</h2>
+    <p class="subtitle">精选新疆非遗刺绣工艺品，支持传统文化传承</p>
+    
+    <div class="category-filter">
+      <button class="filter-btn active" data-category="all">全部</button>
+      <button class="filter-btn" data-category="embroidery">刺绣作品</button>
+      <button class="filter-btn" data-category="accessories">配饰服饰</button>
+      <button class="filter-btn" data-category="daily">日常用品</button>
+      <button class="filter-btn" data-category="materials">材料包</button>
+    </div>
+
+    <div id="product-list" class="product-list"></div>
+  </div>
+
+  <div id="product-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 绣缕山河·云展新疆 | 新疆非遗刺绣数字传承平台</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    async function loadProducts() {
+      try {
+        const response = await fetch('/api/products');
+        const products = await response.json();
+        renderProducts(products);
+      } catch (error) {
+        console.error('加载商品失败:', error);
+      }
+    }
+
+    function renderProducts(products) {
+      const container = document.getElementById('product-list');
+      container.innerHTML = products.map(product => `
+        <div class="product-card" data-id="${product.id}" data-category="${product.category}">
+          <img src="${product.image}" alt="${product.name}">
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p class="product-desc">${product.description}</p>
+            <div class="product-bottom">
+              <span class="price">¥${product.price}</span>
+              <button class="add-to-cart-btn" onclick="addToCart(${product.id})">加入购物车</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (!e.target.classList.contains('add-to-cart-btn')) {
+            const id = card.dataset.id;
+            showProductDetail(products.find(p => p.id == id));
+          }
+        });
+      });
+    }
+
+    function showProductDetail(product) {
+      const modal = document.getElementById('product-modal');
+      const modalBody = modal.querySelector('.modal-body');
+      modalBody.innerHTML = `
+        <div class="modal-product">
+          <img src="${product.image}" alt="${product.name}">
+          <div class="modal-details">
+            <h2>${product.name}</h2>
+            <p class="product-category">分类：${getCategoryName(product.category)}</p>
+            <p class="product-price">¥${product.price}</p>
+            <p class="product-description">${product.description}</p>
+            <p class="product-story">${product.story || '这是一款精心制作的新疆非遗刺绣作品，每一件都承载着传统文化的精髓。'}</p>
+            <div class="quantity-selector">
+              <button onclick="changeQuantity(-1)">-</button>
+              <input type="number" id="quantity-input" value="1" min="1" max="99">
+              <button onclick="changeQuantity(1)">+</button>
+            </div>
+            <button class="add-to-cart-btn large" onclick="addToCartWithQuantity(${product.id})">加入购物车</button>
+          </div>
+        </div>
+      `;
+      modal.style.display = 'block';
+    }
+
+    function getCategoryName(category) {
+      const names = {
+        'embroidery': '刺绣作品',
+        'accessories': '配饰服饰',
+        'daily': '日常用品',
+        'materials': '材料包'
+      };
+      return names[category] || category;
+    }
+
+    function changeQuantity(delta) {
+      const input = document.getElementById('quantity-input');
+      let value = parseInt(input.value) + delta;
+      if (value < 1) value = 1;
+      if (value > 99) value = 99;
+      input.value = value;
+    }
+
+    function addToCartWithQuantity(id) {
+      const quantity = parseInt(document.getElementById('quantity-input').value);
+      addToCart(id, quantity);
+      document.getElementById('product-modal').style.display = 'none';
+    }
+
+    document.querySelector('.close').onclick = function() {
+      document.getElementById('product-modal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('product-modal')) {
+        document.getElementById('product-modal').style.display = 'none';
+      }
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const category = btn.dataset.category;
+        document.querySelectorAll('.product-card').forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    loadProducts();
+    updateCartCount();
+  </script>
+</body>
+</html>

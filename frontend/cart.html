@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>购物车 - 绣缕山河·云展新疆</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>绣缕山河·云展新疆</h1>
+    <p>新疆非遗刺绣数字传承平台</p>
+  </header>
+
+  <nav>
+    <a href="/">首页</a>
+    <a href="heritage.html">非遗刺绣</a>
+    <a href="craft.html">工艺教程</a>
+    <a href="news.html">新闻动态</a>
+    <a href="shop.html">非遗商店</a>
+    <a href="about.html">关于我们</a>
+    <a href="contact.html">联系我们</a>
+    <a href="cart.html" class="cart-link">购物车 (<span id="cart-count">0</span>)</a>
+  </nav>
+
+  <div class="container">
+    <h2>我的购物车</h2>
+    
+    <div class="cart-container">
+      <div id="cart-items" class="cart-items"></div>
+      
+      <div class="cart-summary">
+        <h3>订单信息</h3>
+        <div class="cart-total">
+          <span>商品总价：</span>
+          <span id="cart-total">¥0</span>
+        </div>
+        
+        <form id="order-form" onsubmit="submitOrder(event)">
+          <div class="form-group">
+            <label for="customerName">收货人姓名 *</label>
+            <input type="text" id="customerName" name="customerName" required placeholder="请输入收货人姓名">
+          </div>
+          
+          <div class="form-group">
+            <label for="customerPhone">联系电话 *</label>
+            <input type="tel" id="customerPhone" name="customerPhone" required placeholder="请输入联系电话">
+          </div>
+          
+          <div class="form-group">
+            <label for="customerAddress">收货地址</label>
+            <textarea id="customerAddress" name="customerAddress" placeholder="请输入详细收货地址"></textarea>
+          </div>
+          
+          <button type="submit" class="btn-primary checkout-btn">提交订单</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 绣缕山河·云展新疆 | 新疆非遗刺绣数字传承平台</p>
+  </footer>
+
+  <script src="js/cart.js"></script>
+  <script>
+    renderCart();
+    updateCartCount();
+  </script>
+</body>
+</html>

@@ -36,6 +36,33 @@ async function initDatabase() {
         create_time DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `);
+
+    // 商品表
+    db.run(`
+      CREATE TABLE IF NOT EXISTS products (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        category TEXT,
+        price REAL,
+        description TEXT,
+        image TEXT,
+        story TEXT
+      )
+    `);
+
+    // 订单表
+    db.run(`
+      CREATE TABLE IF NOT EXISTS orders (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        customerName TEXT,
+        customerPhone TEXT,
+        customerAddress TEXT,
+        items TEXT,
+        totalAmount REAL,
+        status TEXT,
+        create_time DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
     
     dbInitialized = true;
     console.log('数据库初始化成功');

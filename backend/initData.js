@@ -100,6 +100,82 @@ async function initData() {
       console.log(`✅ 添加新闻: ${news.title}`);
     }
 
+    // 插入商品数据
+    const productsData = [
+      {
+        name: '哈密刺绣抱枕',
+        category: 'daily',
+        price: 168,
+        description: '手工刺绣抱枕，精选哈密传统图案，适合家居装饰',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=哈密刺绣抱枕，手工刺绣，传统图案，家居装饰，高清照片&image_size=square',
+        story: '由哈密本地绣娘手工制作，每一件都是独一无二的艺术品。'
+      },
+      {
+        name: '维吾尔族刺绣围巾',
+        category: 'accessories',
+        price: 298,
+        description: '真丝材质，手工刺绣，民族风格浓郁',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=维吾尔族刺绣围巾，真丝材质，手工刺绣，民族风格，高清照片&image_size=square',
+        story: '选用上等真丝，由经验丰富的绣娘耗时数周完成。'
+      },
+      {
+        name: '柯尔克孜族壁挂',
+        category: 'embroidery',
+        price: 680,
+        description: '纯手工制作，草原风情，适合挂于客厅或书房',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=柯尔克孜族刺绣壁挂，草原风情，手工制作，高清照片&image_size=square',
+        story: '传承人倾心之作，展现草原民族的独特审美。'
+      },
+      {
+        name: '刺绣材料包（初学者）',
+        category: 'materials',
+        price: 88,
+        description: '包含刺绣针线、布料、图样教程，适合入门学习',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=刺绣材料包，针线布料，入门教程，高清照片&image_size=square',
+        story: '专为刺绣爱好者设计，让您在家就能体验传统刺绣技艺。'
+      },
+      {
+        name: '哈萨克族刺绣背包',
+        category: 'accessories',
+        price: 358,
+        description: '民族风格手提包，适合日常出行',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=哈萨克族刺绣背包，民族风格，手工刺绣，高清照片&image_size=square',
+        story: '将传统刺绣工艺与现代包袋设计相结合，实用又美观。'
+      },
+      {
+        name: '刺绣桌旗',
+        category: 'daily',
+        price: 128,
+        description: '精致刺绣桌旗，提升餐桌格调',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=刺绣桌旗，精致工艺，餐桌装饰，高清照片&image_size=square',
+        story: '每一块桌旗都采用传统刺绣技艺，为您的餐桌增添民族风情。'
+      },
+      {
+        name: '大型刺绣挂画',
+        category: 'embroidery',
+        price: 1280,
+        description: '精美大型挂画，展现新疆刺绣艺术的巅峰之作',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=大型刺绣挂画，精美工艺，新疆风景，高清照片&image_size=square',
+        story: '由多位刺绣大师历时数月共同完成，是收藏与装饰的绝佳选择。'
+      },
+      {
+        name: '刺绣材料包（进阶版）',
+        category: 'materials',
+        price: 168,
+        description: '包含高级材料和专业工具，适合有一定基础的学员',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=刺绣材料包进阶版，专业工具，高级材料，高清照片&image_size=square',
+        story: '升级版材料包含更多珍稀线材和复杂图样，助您技艺精进。'
+      }
+    ];
+
+    for (const product of productsData) {
+      await db.run(
+        'INSERT INTO products (name, category, price, description, image, story) VALUES (?, ?, ?, ?, ?, ?)',
+        [product.name, product.category, product.price, product.description, product.image, product.story]
+      );
+      console.log(`✅ 添加商品: ${product.name}`);
+    }
+
     console.log('\n🎉 数据初始化完成！');
   } catch (error) {
     console.error('数据初始化失败:', error);
