@@ -54,7 +54,7 @@
   <script>
     async function loadProducts() {
       try {
-        const response = await fetch('/api/products');
+        const response = await fetch('data/products.json');
         const products = await response.json();
         renderProducts(products);
       } catch (error) {

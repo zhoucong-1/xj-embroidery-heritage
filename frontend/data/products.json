@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "哈密刺绣抱枕",
+    "category": "daily",
+    "price": 168,
+    "description": "手工刺绣抱枕，精选哈密传统图案，适合家居装饰",
+    "image": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=400&h=400&fit=crop",
+    "story": "由哈密本地绣娘手工制作，每一件都是独一无二的艺术品。"
+  },
+  {
+    "id": 2,
+    "name": "维吾尔族刺绣围巾",
+    "category": "accessories",
+    "price": 298,
+    "description": "真丝材质，手工刺绣，民族风格浓郁",
+    "image": "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=400&h=400&fit=crop",
+    "story": "选用上等真丝，由经验丰富的绣娘耗时数周完成。"
+  },
+  {
+    "id": 3,
+    "name": "柯尔克孜族壁挂",
+    "category": "embroidery",
+    "price": 680,
+    "description": "纯手工制作，草原风情，适合挂于客厅或书房",
+    "image": "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400&h=400&fit=crop",
+    "story": "传承人倾心之作，展现草原民族的独特审美。"
+  },
+  {
+    "id": 4,
+    "name": "刺绣材料包（初学者）",
+    "category": "materials",
+    "price": 88,
+    "description": "包含刺绣针线、布料、图样教程，适合入门学习",
+    "image": "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400&h=400&fit=crop",
+    "story": "专为刺绣爱好者设计，让您在家就能体验传统刺绣技艺。"
+  },
+  {
+    "id": 5,
+    "name": "哈萨克族刺绣背包",
+    "category": "accessories",
+    "price": 358,
+    "description": "民族风格手提包，适合日常出行",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
+    "story": "将传统刺绣工艺与现代包袋设计相结合，实用又美观。"
+  },
+  {
+    "id": 6,
+    "name": "刺绣桌旗",
+    "category": "daily",
+    "price": 128,
+    "description": "精致刺绣桌旗，提升餐桌格调",
+    "image": "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&h=400&fit=crop",
+    "story": "每一块桌旗都采用传统刺绣技艺，为您的餐桌增添民族风情。"
+  },
+  {
+    "id": 7,
+    "name": "大型刺绣挂画",
+    "category": "embroidery",
+    "price": 1280,
+    "description": "精美大型挂画，展现新疆刺绣艺术的巅峰之作",
+    "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop",
+    "story": "由多位刺绣大师历时数月共同完成，是收藏与装饰的绝佳选择。"
+  },
+  {
+    "id": 8,
+    "name": "刺绣材料包（进阶版）",
+    "category": "materials",
+    "price": 168,
+    "description": "包含高级材料和专业工具，适合有一定基础的学员",
+    "image": "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=400&fit=crop",
+    "story": "升级版材料包含更多珍稀线材和复杂图样，助您技艺精进。"
+  }
+]

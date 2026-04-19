@@ -7,9 +7,15 @@ function updateCartCount() {
 }
 
 function addToCart(productId, quantity = 1) {
-  fetch(`/api/products/${productId}`)
+  fetch('data/products.json')
     .then(res => res.json())
-    .then(product => {
+    .then(products => {
+      const product = products.find(p => p.id === productId);
+      if (!product) {
+        showNotification('商品不存在', 'error');
+        return;
+      }
+      
       const existingItem = cart.find(item => item.id === product.id);
       
       if (existingItem) {
@@ -138,25 +144,20 @@ async function submitOrder(event) {
     customerPhone,
     customerAddress,
     items: cart,
-    totalAmount: getCartTotal()
+    totalAmount: getCartTotal(),
+    orderTime: new Date().toLocaleString('zh-CN')
   };
   
   try {
-    const response = await fetch('/api/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderData)
-    });
+    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    orders.push(orderData);
+    localStorage.setItem('orders', JSON.stringify(orders));
     
-    if (response.ok) {
-      clearCart();
-      showNotification('订单提交成功！我们会尽快与您联系');
-      setTimeout(() => {
-        window.location.href = 'index.html';
-      }, 2000);
-    } else {
-      throw new Error('订单提交失败');
-    }
+    clearCart();
+    showNotification('订单提交成功！我们会尽快与您联系');
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 2000);
   } catch (error) {
     console.error('订单提交失败:', error);
     showNotification('订单提交失败，请稍后重试', 'error');
