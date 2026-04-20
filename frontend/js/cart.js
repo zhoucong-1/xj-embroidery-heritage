@@ -144,20 +144,28 @@ async function submitOrder(event) {
     customerPhone,
     customerAddress,
     items: cart,
-    totalAmount: getCartTotal(),
-    orderTime: new Date().toLocaleString('zh-CN')
+    totalAmount: getCartTotal()
   };
   
   try {
-    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-    orders.push(orderData);
-    localStorage.setItem('orders', JSON.stringify(orders));
+    const response = await fetch('/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(orderData)
+    });
     
-    clearCart();
-    showNotification('订单提交成功！我们会尽快与您联系');
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 2000);
+    if (response.ok) {
+      clearCart();
+      showNotification('订单提交成功！我们会尽快与您联系');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 2000);
+    } else {
+      const error = await response.json();
+      showNotification(error.error || '订单提交失败，请稍后重试', 'error');
+    }
   } catch (error) {
     console.error('订单提交失败:', error);
     showNotification('订单提交失败，请稍后重试', 'error');

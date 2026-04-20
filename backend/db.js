@@ -63,6 +63,18 @@ async function initDatabase() {
         create_time DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `);
+
+    // 用户表
+    db.run(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE,
+        email TEXT UNIQUE,
+        password TEXT,
+        role TEXT DEFAULT 'user',
+        create_time DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
     
     dbInitialized = true;
     console.log('数据库初始化成功');
