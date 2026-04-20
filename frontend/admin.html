@@ -370,7 +370,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import API_CONFIG from './js/config.js';
+
     let orders = [];
 
     // 检查登录状态
@@ -394,7 +396,7 @@
       if (!checkLogin()) return;
       
       try {
-        const response = await fetch('/api/orders');
+        const response = await fetch(`${API_CONFIG.BASE_URL}/api/orders`);
         orders = await response.json();
         updateStats();
         renderOrders();
@@ -536,7 +538,7 @@
 
     async function updateOrderStatus(orderId, status) {
       try {
-        const response = await fetch(`/api/orders/${orderId}/status`, {
+        const response = await fetch(`${API_CONFIG.BASE_URL}/api/orders/${orderId}/status`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'

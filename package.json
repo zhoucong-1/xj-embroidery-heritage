@@ -1,0 +1,19 @@
+{
+  "name": "xj-embroidery-api",
+  "version": "1.0.0",
+  "description": "新疆非遗刺绣数字传承平台API",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create xj-embroidery",
+    "db:migrate": "wrangler d1 execute xj-embroidery --file=./migrations/schema.sql"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20241022.0",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "wrangler": "^3.79.0"
+  }
+}

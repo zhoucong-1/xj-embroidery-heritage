@@ -284,7 +284,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import API_CONFIG from './js/config.js';
+
     // 切换标签页
     document.querySelectorAll('.tab').forEach(tab => {
       tab.addEventListener('click', function() {
@@ -342,7 +344,7 @@
       loginLoading.style.display = 'inline-block';
       
       try {
-        const response = await fetch('/api/auth/login', {
+        const response = await fetch(`${API_CONFIG.BASE_URL}/api/auth/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -395,7 +397,7 @@
       registerLoading.style.display = 'inline-block';
       
       try {
-        const response = await fetch('/api/auth/register', {
+        const response = await fetch(`${API_CONFIG.BASE_URL}/api/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

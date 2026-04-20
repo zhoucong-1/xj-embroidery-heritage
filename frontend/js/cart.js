@@ -1,3 +1,5 @@
+import API_CONFIG from './config.js';
+
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 function updateCartCount() {
@@ -148,7 +150,7 @@ async function submitOrder(event) {
   };
   
   try {
-    const response = await fetch('/api/orders', {
+    const response = await fetch(`${API_CONFIG.BASE_URL}/api/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
